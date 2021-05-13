@@ -1,0 +1,13 @@
+# Debug
+*.dSYM
+
+# Executables
+*.exe
+*.out
+*.app
+
+# Mac
+.DS_Store
+
+# VisualCode
+.vscode
