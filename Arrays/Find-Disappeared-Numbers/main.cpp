@@ -28,7 +28,28 @@ public:
         return missingValues;
     }
     // nyx's solution
-    vector<int> findDisappearedNumbers1(vector<int>& nums) {
+    vector<int> findDisappearedNumbers1(vector<int>& nums) { // 4,3,2,7,8,2,3,1
+        /* Turn the index value of all numbers present in the array negative 
+        as a way to record what values are present */
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] > 0 && nums[nums[i] - 1] > 0) {
+                nums[nums[i] - 1] = - nums[nums[i] - 1];
+            } else if (nums[i] < 0 && nums[-nums[i] - 1] > 0) {
+                nums[-nums[i] - 1] = - nums[-nums[i] - 1];
+            }
+        }
+        // Adjust array to put the values NOT present in the original array in front
+        int negCount = 0;
+        for (int i = 0; i < nums.size(); i++) { // -4,-3,-2,-7,8,2,-3,-1
+            if (nums[i] < 0) {
+                negCount++;
+            } else {
+                nums[i - negCount] = i + 1;
+            }
+        }
+
+        nums.resize(nums.size() - negCount);
+
         return nums;
     }
 };
@@ -40,7 +61,7 @@ int main() {
     Solution sol;
 
     auto start = high_resolution_clock::now();
-    res = sol.findDisappearedNumbers(nums);
+    res = sol.findDisappearedNumbers1(nums);
     auto stop = high_resolution_clock::now();
 
     duration<double, std::milli> float_ms = stop - start;
