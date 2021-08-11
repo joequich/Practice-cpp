@@ -33,6 +33,7 @@ public:
         arr = dupZero;
         return arr;
     };
+    // nyx's solution
     std::vector<int> duplicateZeros3(std::vector<int>& arr) {
         int countZerosToDup = 0;
         int counterZeros = 0;
@@ -46,15 +47,14 @@ public:
         }
         
         for (int i = arr.size() - 1 - countZerosToDup; countZerosToDup > 0; i--) {
-            if (i == arr.size() - 1 - countZerosToDup && arr[i] == 0 && counterZeros == countZerosToDup) {
+            // handles starting zero by shifting
+            if (i == arr.size() - 1 - countZerosToDup && arr[i] == 0 && counterZeros != countZerosToDup) {
                 arr[i + countZerosToDup] = 0;
-                arr[i + countZerosToDup - 1] = 0;
-                countZerosToDup--;
-            } else if (i == arr.size() - 1 - countZerosToDup && arr[i] == 0) {
-                arr[i + countZerosToDup] = 0;
-            } else if (arr[i] != 0) {
+            } // handles non-zero values 
+            else if (arr[i] != 0) {
                 arr[i + countZerosToDup] = arr[i];
-            } else {
+            } // handles duplicating zeros 
+            else {
                 arr[i + countZerosToDup] = 0;
                 arr[i + countZerosToDup - 1] = 0;
                 countZerosToDup--;
